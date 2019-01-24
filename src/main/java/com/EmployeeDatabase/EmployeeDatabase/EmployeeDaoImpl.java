@@ -29,11 +29,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			String qry = "SELECT * FROM Employee";
 			st = con.createStatement();
 			res = st.executeQuery(qry);
-			Employee emp = new Employee();
+			//Employee emp = new Employee();
 			List <Employee> empList = new ArrayList<Employee>();
 			
 			while(res.next())
 			{
+				Employee emp = new Employee();
 				emp.setEmployeeId(res.getInt("employeeId"));
 				emp.setName(res.getString("name"));
 				emp.setAge(res.getInt("age"));
@@ -140,7 +141,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public Boolean deleteEmployee(int empId) {
 		
 		Connection con = null;
-		 Statement st = null;
+		Statement st = null;
 		 
 		 String sql = "DELETE FROM Employee WHERE employeeId="+empId;
 		 
@@ -164,5 +165,208 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		 return null;
 	}
 	
+	public Boolean CreateTable(String sql) {
+		
+		Connection con = null;
+		Statement st = null;
+		
+		
+		
+		try {
+			
+			DataSource ds = new DataSource();
+			 
+			con = ds.createConnection();
+			 
+			st = con.createStatement();
+			 
+			st.execute(sql);
+			 
+			return true;
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+		
+		
+	return null;
+	}
+	
+	//----------------------join------------------------
+	
+	
+	public List<Employee> innerJoin() {
+		
+		
+		DataSource ds = new DataSource();
+		Connection con = ds.createConnection();
+		Statement st = null;
+		ResultSet res = null;
+		
+		try {
+			String qry ="SELECT Projects.projectId, Projects.pName, Employee.employeeId, Employee.name" + 
+						" FROM Projects"+ 
+						" INNER JOIN Employee ON Projects.emloyeeId=Employee.employeeId ";
+			
+			
+			st = con.createStatement();
+			res = st.executeQuery(qry);
+			
+			List <Employee> empList2 = new ArrayList<Employee>();
+			
+			while(res.next())
+			{
+				Employee emp = new Employee();
+				emp.setEmployeeId(res.getInt("employeeId"));
+				emp.setName(res.getString("name"));
+				emp.setProjectId(res.getInt("projectId"));
+				emp.setProjectName(res.getString("pName"));
+				
+				
+				empList2.add(emp);
+				
+				
+			}
+			return empList2;
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+		
+		return null;
+		
+	}
+	
+	public List<Employee> leftJoin() {
+		
+		
+		DataSource ds = new DataSource();
+		Connection con = ds.createConnection();
+		Statement st = null;
+		ResultSet res = null;
+		
+		try {
+			String qry ="SELECT Projects.projectId, Projects.pName, Employee.employeeId, Employee.name" + 
+					" FROM Employee" + 
+					" LEFT JOIN Projects ON Projects.emloyeeId = Employee.employeeId;";
+			
+			
+			st = con.createStatement();
+			res = st.executeQuery(qry);
+			
+			List <Employee> empList = new ArrayList<Employee>();
+			
+			while(res.next())
+			{
+				Employee emp = new Employee();
+				emp.setEmployeeId(res.getInt("employeeId"));
+				emp.setName(res.getString("name"));
+				emp.setProjectId(res.getInt("projectId"));
+				emp.setProjectName(res.getString("pName"));
+				
+				
+				empList.add(emp);
+				
+				
+			}
+			return empList;
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+		
+		return null;
+		
+	}
+	
+	public List<Employee> rightJoin() {
+		
+		
+		DataSource ds = new DataSource();
+		Connection con = ds.createConnection();
+		Statement st = null;
+		ResultSet res = null;
+		
+		try {
+			String qry ="SELECT Projects.projectId, Projects.pName, Employee.employeeId, Employee.name" + 
+					" FROM Employee" + 
+					" RIGHT JOIN Projects ON Projects.emloyeeId = Employee.employeeId;";
+			
+			
+			st = con.createStatement();
+			res = st.executeQuery(qry);
+			
+			List <Employee> empList = new ArrayList<Employee>();
+			
+			while(res.next())
+			{
+				Employee emp = new Employee();
+				emp.setEmployeeId(res.getInt("employeeId"));
+				emp.setName(res.getString("name"));
+				emp.setProjectId(res.getInt("projectId"));
+				emp.setProjectName(res.getString("pName"));
+				
+				
+				empList.add(emp);
+				
+				
+			}
+			return empList;
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+		
+		return null;
+		
+	}
+	
+	public List<Employee> fullJoin() {
+		
+		
+		DataSource ds = new DataSource();
+		Connection con = ds.createConnection();
+		Statement st = null;
+		ResultSet res = null;
+		
+		try {
+			String qry ="SELECT Projects.projectId, Projects.pName, Employee.employeeId, Employee.name" + 
+					" FROM Employee" + 
+					" FULL OUTER JOIN Projects ON Employee.employeeId = Projects.emloyeeId;";
+			
+			
+			st = con.createStatement();
+			res = st.executeQuery(qry);
+			
+			List <Employee> empList = new ArrayList<Employee>();
+			
+			while(res.next())
+			{
+				Employee emp = new Employee();
+				emp.setEmployeeId(res.getInt("employeeId"));
+				emp.setName(res.getString("name"));
+				emp.setProjectId(res.getInt("projectId"));
+				emp.setProjectName(res.getString("pName"));
+				
+				
+				empList.add(emp);
+				
+				
+			}
+			return empList;
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+		
+		return null;
+		
+	}
 
 }

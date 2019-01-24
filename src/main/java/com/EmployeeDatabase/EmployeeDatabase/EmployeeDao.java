@@ -13,5 +13,15 @@ public interface EmployeeDao {
 	public Boolean updateEmployee(Employee emp);
 	
 	public Boolean deleteEmployee(int empId);
+	
+	public Boolean CreateTable(String sql);
+	
+	public List<Employee> innerJoin();
+	
+	public List<Employee> leftJoin();
+	
+	public List<Employee> rightJoin();
+	
+	public List<Employee> fullJoin();
 
 }

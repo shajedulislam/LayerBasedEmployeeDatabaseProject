@@ -8,9 +8,7 @@ public class DbDeleteTest {
 
 	@Test
 	public void test() {
-		EmployeeDao empDao = new EmployeeDaoImpl();
-		
-		
+		EmployeeDao empDao = new EmployeeDaoImpl();	
 		
 		assertTrue(empDao.deleteEmployee(456));
 	}

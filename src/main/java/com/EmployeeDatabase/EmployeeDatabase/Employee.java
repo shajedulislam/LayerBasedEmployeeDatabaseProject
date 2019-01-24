@@ -10,6 +10,10 @@ public class Employee {
 	private String city;
 	private int zipcode;
 	
+	private int projectId;
+	private String pName;
+	
+	
 	public int getEmployeeId()
 	{
 		return employeeId;
@@ -89,6 +93,29 @@ public class Employee {
 	public void setZipcode(int zc)
 	{
 		this.zipcode = zc;
+	}
+	
+	//-----------------------for projects------------------
+	
+	public int getProjectId()
+	{
+		return projectId;
+	}
+	
+	public void setProjectId(int proId)
+	{
+		this.projectId = proId;
+	}
+	
+	
+	public String getProjectName()
+	{
+		return pName;
+	}
+	
+	public void setProjectName(String pName)
+	{
+		this.pName = pName;
 	}
 	
 
