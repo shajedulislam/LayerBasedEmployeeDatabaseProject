@@ -23,5 +23,9 @@ public interface EmployeeDao {
 	public List<Employee> rightJoin();
 	
 	public List<Employee> fullJoin();
+	
+	public List<Employee> GroupByQueryCount(String qry);
+	
+	public List<Employee> GroupByQueryMax(String qry);
 
 }

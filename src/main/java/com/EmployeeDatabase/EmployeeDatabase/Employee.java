@@ -6,6 +6,7 @@ public class Employee {
 	private String name;
 	private int age;
 	private int salary;
+	private String department;
 	private String country;
 	private String city;
 	private int zipcode;
@@ -60,6 +61,17 @@ public class Employee {
 		this.salary = sl;
 	}
 	
+	
+	
+	public String getDept()
+	{
+		return department;
+	}
+	
+	public void setDept(String dep)
+	{
+		this.department = dep;
+	}
 	
 	
 	public String getCountry()

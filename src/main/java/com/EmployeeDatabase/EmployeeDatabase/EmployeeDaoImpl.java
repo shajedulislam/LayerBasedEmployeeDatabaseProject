@@ -26,7 +26,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		ResultSet res = null;
 		
 		try {
-			String qry = "SELECT * FROM Employee";
+			String qry = "SELECT * FROM Employees";
 			st = con.createStatement();
 			res = st.executeQuery(qry);
 			//Employee emp = new Employee();
@@ -64,7 +64,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		
 		Statement st = null;
 		
-		String insert = "insert into Employee values("+emp.getEmployeeId()+","+"'"+emp.getName()+"'"+","+"'"+ emp.getAge()+"'"+","+"'"+emp.getSalary()+"'"+","+"'"+emp.getCountry()+"'"+","+"'"+emp.getCity()+"'"+","+"'"+emp.getZipcode()+"'"+")";
+		String insert = "insert into Employees values("+emp.getEmployeeId()+","+"'"+emp.getName()+"'"+","+"'"+ emp.getAge()+"'"+","+"'"+emp.getSalary()+"'"+","+"'"+emp.getDept()+"'"+","+"'"+emp.getCountry()+"'"+","+"'"+emp.getCity()+"'"+","+"'"+emp.getZipcode()+"'"+")";
 		
 		try
 		{
@@ -92,7 +92,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		ResultSet res = null;
 		
 		try {
-			String qry = "SELECT * FROM Employee WHERE employeeId="+empId;
+			String qry = "SELECT * FROM Employees WHERE employeeId="+empId;
 			st = con.createStatement();
 			res = st.executeQuery(qry);
 			Employee emp = new Employee();
@@ -121,7 +121,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		Connection con = null;
 		Statement st = null;
 		
-		String sql = "UPDATE Employee SET salary="+"'"+emp.getSalary()+"'"+"WHERE employeeId="+emp.getEmployeeId();
+		String sql = "UPDATE Employees SET salary="+"'"+emp.getSalary()+"'"+"WHERE employeeId="+emp.getEmployeeId();
 		
 		try {
 			DataSource ds = new DataSource();
@@ -143,7 +143,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		Connection con = null;
 		Statement st = null;
 		 
-		 String sql = "DELETE FROM Employee WHERE employeeId="+empId;
+		 String sql = "DELETE FROM Employees WHERE employeeId="+empId;
 		 
 		 try {
 			 DataSource ds = new DataSource();
@@ -206,9 +206,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		ResultSet res = null;
 		
 		try {
-			String qry ="SELECT Projects.projectId, Projects.pName, Employee.employeeId, Employee.name" + 
+			String qry ="SELECT Projects.projectId, Projects.pName, Employees.employeeId, Employees.name" + 
 						" FROM Projects"+ 
-						" INNER JOIN Employee ON Projects.emloyeeId=Employee.employeeId ";
+						" INNER JOIN Employees ON Projects.emloyeeId=Employees.employeeId ";
 			
 			
 			st = con.createStatement();
@@ -249,9 +249,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		ResultSet res = null;
 		
 		try {
-			String qry ="SELECT Projects.projectId, Projects.pName, Employee.employeeId, Employee.name" + 
-					" FROM Employee" + 
-					" LEFT JOIN Projects ON Projects.emloyeeId = Employee.employeeId;";
+			String qry ="SELECT Projects.projectId, Projects.pName, Employees.employeeId, Employees.name" + 
+					" FROM Employees" + 
+					" LEFT JOIN Projects ON Projects.emloyeeId = Employees.employeeId;";
 			
 			
 			st = con.createStatement();
@@ -292,9 +292,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		ResultSet res = null;
 		
 		try {
-			String qry ="SELECT Projects.projectId, Projects.pName, Employee.employeeId, Employee.name" + 
-					" FROM Employee" + 
-					" RIGHT JOIN Projects ON Projects.emloyeeId = Employee.employeeId;";
+			String qry ="SELECT Projects.projectId, Projects.pName, Employees.employeeId, Employees.name" + 
+					" FROM Employees" + 
+					" RIGHT JOIN Projects ON Projects.emloyeeId = Employees.employeeId;";
 			
 			
 			st = con.createStatement();
@@ -335,9 +335,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		ResultSet res = null;
 		
 		try {
-			String qry ="SELECT Projects.projectId, Projects.pName, Employee.employeeId, Employee.name" + 
-					" FROM Employee" + 
-					" FULL OUTER JOIN Projects ON Employee.employeeId = Projects.emloyeeId;";
+			String qry ="SELECT Projects.projectId, Projects.pName, Employees.employeeId, Employees.name" + 
+					" FROM Employees" + 
+					" FULL OUTER JOIN Projects ON Employees.employeeId = Projects.emloyeeId;";
 			
 			
 			st = con.createStatement();
@@ -368,5 +368,84 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		return null;
 		
 	}
+	
+	public List<Employee> GroupByQueryCount(String qry) {
+		
+		
+		DataSource ds = new DataSource();
+		Connection con = ds.createConnection();
+		Statement st = null;
+		ResultSet res = null;
+		
+		try {
+			
+			
+			st = con.createStatement();
+			res = st.executeQuery(qry);
+			
+			List <Employee> empList = new ArrayList<Employee>();
+			
+			while(res.next())
+			{
+				Employee emp = new Employee();
+				emp.setEmployeeId(res.getInt(1));
+				emp.setCity(res.getString("city"));
+								
+				
+				empList.add(emp);
+				
+				
+			}
+			return empList;
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+		
+		return null;
+		
+	}
+	
+	public List<Employee> GroupByQueryMax(String qry) {
+		
+		
+		DataSource ds = new DataSource();
+		Connection con = ds.createConnection();
+		Statement st = null;
+		ResultSet res = null;
+		
+		try {
+			
+			
+			st = con.createStatement();
+			res = st.executeQuery(qry);
+			
+			List <Employee> empList = new ArrayList<Employee>();
+			
+			while(res.next())
+			{
+				Employee emp = new Employee();
+				emp.setSalary(res.getInt(1));
+				emp.setDept(res.getString("Department"));
+				//emp.setName(res.getString("name"));
+								
+				
+				empList.add(emp);
+				
+				
+			}
+			return empList;
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+		
+		return null;
+		
+	}
+	
+	
 
 }
